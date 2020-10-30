@@ -1,0 +1,16 @@
+# Dockerized pwntools - Used to reverse engineer/instrument binaries
+
+# Usage Examples:
+#   - docker run --rm -it -v $(pwd):/shared pwntools ipython3
+
+FROM python
+
+ENV DEBIAN_FRONTEND noninteractive
+
+WORKDIR /root/
+
+RUN apt-get update && apt-get install -y git python3-pip
+
+RUN pip3 install --upgrade pwntools ipython
+
+CMD echo "Welcome to the pwntools image!\n\nCWD mounted at /shared/\n" && bash

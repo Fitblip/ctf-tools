@@ -1,0 +1,16 @@
+# Dockerized wfuzz + SecLists - Used to scan for interesting files on webservers
+
+# Taken from https://github.com/xmendez/wfuzz/blob/52e6b057483f5e9038ba85eeefa9b8d97cac4db4/Dockerfile
+
+# Usage Examples:
+#   - docker run --rm -it wfuzz -c -z file,/SecLists/Discovery/Web-Content/big.txt --hc 404 http://d4rk.razictf.ir:45873/FUZZ
+
+
+FROM python:3-alpine
+
+RUN apk update && apk add git curl-dev build-base
+
+RUN cd /root/ && git clone https://github.com/xmendez/wfuzz.git && cd wfuzz && python setup.py install
+
+# Install SecLists to /
+RUN cd / && git clone https://github.com/danielmiessler/SecLists.git

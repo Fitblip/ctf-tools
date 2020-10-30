@@ -1,0 +1,15 @@
+# Dockerized pwndbg - Used to reverse engineer/instrument binaries
+
+# Usage Examples:
+#   - docker run --rm -it -v $(pwd):/shared pwndbg gdb /shared/some_binary
+
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND noninteractive
+
+WORKDIR /shared/
+
+RUN apt-get update && apt-get install -y git gdb make build-essential
+
+RUN cd /root/ && git clone https://github.com/pwndbg/pwndbg.git
+RUN cd /root/pwndbg/ && DEBIAN_FRONTEND=noninteractive ./setup.sh && echo 'source /root/pwndbg/gdbinit.py' >> /root/.gdbinit.py

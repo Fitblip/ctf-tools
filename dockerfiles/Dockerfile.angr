@@ -1,0 +1,10 @@
+# Dockerized angr environment - Used for symbolic execution + analysis of binaries
+
+# Usage Examples:
+#   - docker run --rm -it -v $(pwd):/shared angr python /shared/run.py
+
+FROM angr/angr
+
+WORKDIR /shared/
+
+# Add customizations here as needed/wanted

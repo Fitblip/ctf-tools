@@ -1,0 +1,16 @@
+# Dockerized debug tools (PEDA and Radare2) - Used to reverse engineer/instrument binaries
+
+# Usage Examples:
+#   - docker run --rm -it -v $(pwd):/shared debugtools gdb /shared/some_binary
+
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND noninteractive
+
+WORKDIR /shared/
+
+RUN apt-get update && apt-get install -y git gdb make build-essential
+
+RUN git clone https://github.com/longld/peda.git
+RUN echo "source ~/peda/peda.py" >> /root/.gdbinit
+

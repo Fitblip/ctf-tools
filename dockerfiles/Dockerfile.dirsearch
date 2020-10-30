@@ -1,0 +1,19 @@
+# Dockerized dirsearch - Used to scan for interesting files on webservers
+
+# Taken from https://github.com/maurosoria/dirsearch/blob/5dc5d93e2b8f907fe3463c149b0efd58e35e82f2/Dockerfile
+
+# Usage Examples:
+#   - docker run --rm -it jradik/dirsearch-docker -u d4rk.razictf.ir:45873 -u http://d4rk.razictf.ir:8080/ -e sh,txt,php,html,htm,asp,aspx,js,xml,log,json,jpg,jpeg,png,gif,doc,pdf,mpg,mp3,zip,tar.gz,tar
+
+FROM python:3.7-alpine
+
+RUN apk update && apk add git
+
+RUN pip install urllib3 chardet certifi
+
+RUN cd /root/ && git clone https://github.com/maurosoria/dirsearch.git
+
+WORKDIR /root/dirsearch
+
+ENTRYPOINT ["./dirsearch.py"]
+CMD ["--help"]

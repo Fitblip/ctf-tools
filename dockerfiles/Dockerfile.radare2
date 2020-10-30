@@ -1,0 +1,15 @@
+# Dockerized Radare2 - Used to reverse engineer/instrument binaries
+
+# Usage Examples:
+#   - docker run --rm -it -v $(pwd):/shared radare2 radare2 /shared/some_binary
+
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND noninteractive
+
+WORKDIR /shared/
+
+RUN apt-get update && apt-get install -y git gdb make build-essential
+
+RUN cd /root && git clone https://github.com/radareorg/radare2
+RUN cd /root/radare2/ && sys/install.sh
